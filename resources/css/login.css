@@ -1,0 +1,19 @@
+body {
+    background-color: #ffffff;
+}
+
+.card {
+    border-radius: 16px;
+}
+
+.input-group-text {
+    background-color: #ffffff;
+}
+
+#togglePassword {
+    min-width: 48px;
+}
+
+.btn {
+    border-radius: 8px;
+}

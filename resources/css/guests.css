@@ -1,0 +1,73 @@
+/* =========================================================
+   Guest Management
+   ========================================================= */
+
+.guest-avatar {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: #e9ecef;
+    color: #495057;
+
+    flex-shrink: 0;
+}
+
+.guest-avatar i {
+    font-size: 16px;
+}
+
+.table > :not(caption) > * > * {
+    padding: 14px 12px;
+}
+
+.table thead th {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.table tbody td {
+    font-size: 14px;
+}
+
+.btn-group .btn {
+    width: 36px;
+    height: 36px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 7px 10px;
+}
+
+/* =========================================================
+   Guest Form
+   ========================================================= */
+
+.guest-form-card {
+    max-width: 900px;
+}
+
+.form-label {
+    font-size: 14px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: none;
+}

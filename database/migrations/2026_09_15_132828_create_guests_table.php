@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('guests', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+
+            $table->string('name');
+            $table->string('no_hp')->nullable();
+            $table->text('address')->nullable();
+
+            $table->string('qr_code')->unique();
+
+            $table->enum('status', [
+                'pending',
+                'checked_in',
+            ])->default('pending');
+
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('guests');
+    }
+};
