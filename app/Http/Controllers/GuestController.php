@@ -14,8 +14,15 @@ class GuestController extends Controller
     public function index()
     {
         $guests = Guest::latest()->paginate(10);
-
         return view('guests.index', compact('guests'));
+    }
+
+    /**
+     * Menampilkan data tamu.
+     */
+    public function show(Guest $guest)
+    {
+        return view('guests.show', compact('guest'));
     }
 
     /**
@@ -32,20 +39,9 @@ class GuestController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'no_hp' => [
-                'nullable',
-                'string',
-                'max:20',
-            ],
-            'address' => [
-                'nullable',
-                'string',
-            ],
+            'name' => ['required', 'string', 'max:255',],
+            'no_hp' => ['nullable', 'string', 'max:20',],
+            'address' => ['nullable','string',],
         ], [
             'name.required' => 'Nama tamu wajib diisi.',
             'name.max' => 'Nama tamu maksimal 255 karakter.',
@@ -76,20 +72,9 @@ class GuestController extends Controller
     public function update(Request $request, Guest $guest)
     {
         $validated = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'no_hp' => [
-                'nullable',
-                'string',
-                'max:20',
-            ],
-            'address' => [
-                'nullable',
-                'string',
-            ],
+            'name' => ['required', 'string', 'max:255',],
+            'no_hp' => ['nullable', 'string', 'max:20',],
+            'address' => ['nullable', 'string',],
         ], [
             'name.required' => 'Nama tamu wajib diisi.',
             'name.max' => 'Nama tamu maksimal 255 karakter.',

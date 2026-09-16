@@ -1,20 +1,13 @@
-/* =========================================================
-   Guest Management
-   ========================================================= */
-
+/* Guest Management */
 .guest-avatar {
     width: 40px;
     height: 40px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
-
     background-color: #e9ecef;
     color: #495057;
-
     flex-shrink: 0;
 }
 
@@ -50,10 +43,7 @@
     padding: 7px 10px;
 }
 
-/* =========================================================
-   Guest Form
-   ========================================================= */
-
+/* Guest Form */
 .guest-form-card {
     max-width: 900px;
 }

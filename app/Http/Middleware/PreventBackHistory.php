@@ -8,11 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PreventBackHistory
 {
-    public function handle(
-        Request $request,
-        Closure $next
-    ): Response {
-
+    public function handle(Request $request, Closure $next): Response {
         $response = $next($request);
 
         $response->headers->set(

@@ -10,11 +10,9 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
             $table->string('name');
             $table->string('no_hp')->nullable();
             $table->text('address')->nullable();
-
             $table->string('qr_code')->unique();
 
             $table->enum('status', [

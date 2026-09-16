@@ -26,6 +26,5 @@ Route::middleware(['auth', 'prevent.back'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard.index');
     })->name('dashboard');
-    Route::resource('guests', GuestController::class)
-        ->except(['show']);
+    Route::resource('guests', GuestController::class);
 });
