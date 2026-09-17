@@ -95,11 +95,11 @@
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4">Quick Actions</h5>
                     <div class="d-grid gap-3">
-                        <a href="#" class="btn btn-primary btn-lg">
+                        <a href="{{ route('scan.index') }}" class="btn btn-primary btn-lg">
                             <i class="fa-solid fa-qrcode me-2"></i>
                             Scan QR Code
                         </a>
-                        <a href="#" class="btn btn-outline-primary">
+                        <a href="{{ route('guests.create') }}" class="btn btn-outline-primary">
                             <i class="fa-solid fa-user-plus me-2"></i>
                             Add Guest
                         </a>

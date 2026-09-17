@@ -49,10 +49,35 @@
                         <div class="fw-semibold">{{ $guest->address ?: '-' }}</div>
                     </div>
 
-                    {{-- QR Code Identifier --}}
+                    {{-- QR Code --}}
                     <div class="col-md-6">
-                        <div class="text-muted small mb-1">QR Code</div>
-                        <div class="fw-semibold">{{ $guest->qr_code }}</div>
+                        <div class="text-muted small mb-2">QR Code</div>
+                        <div id="guestQrCode" class="border rounded p-3 d-inline-block bg-white">
+                            {!! QrCode::size(180)->generate($guest->qr_code) !!}
+                        </div>
+                        <div class="mt-2 text-muted small">{{ $guest->qr_code }}</div>
+                        <div class="mt-3">
+                            <button type="button" id="downloadQrCode" class="btn btn-primary me-2"
+                                data-filename="QR-{{ $guest->qr_code }}.png">
+                                <i class="fa-solid fa-download me-2"></i>
+                                Download QR Code
+                            </button>
+                            <button type="button" id="printQrCode" class="btn btn-outline-dark">
+                                <i class="fa-solid fa-print me-2"></i>
+                                Print QR Code
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Print Area --}}
+                    <div id="printQrArea" class="d-none">
+                        <div class="text-center">
+                            <h4 class="fw-bold mb-2">{{ $guest->name }}</h4>
+                            <div class="mb-3">
+                                {!! QrCode::size(300)->generate($guest->qr_code) !!}
+                            </div>
+                            <div class="fw-semibold">{{ $guest->qr_code }}</div>
+                        </div>
                     </div>
 
                     {{-- Status --}}

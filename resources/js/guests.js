@@ -1,30 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    /*Guest Search & Filter*/
-    const searchInput = document.getElementById('searchGuest');
-    const filterStatus = document.getElementById('filterStatus');
-
-    function filterGuests() {
-        const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
-        const status = filterStatus ? filterStatus.value : '';
-        const rows = document.querySelectorAll('#guestTable tr[data-name]');
-        rows.forEach(function (row) {
-            const name = row.dataset.name;
-            const guestStatus = row.dataset.status;
-            const matchName = name.includes(search);
-            const matchStatus = status === '' || guestStatus === status;
-            row.style.display = matchName && matchStatus ? '' : 'none';
-        });
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener('input', filterGuests);
-    }
-
-    if (filterStatus) {
-        filterStatus.addEventListener('change', filterGuests);
-    }
-
-    // CRUD + Alert Message
+    // CRUD, Alert Message, Search Filter
     // =======================================
 
     /* Success Alert */
@@ -139,6 +114,160 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // END OF CRUD
+    /*Guest Search & Filter*/
+    const searchInput = document.getElementById('searchGuest');
+    const filterStatus = document.getElementById('filterStatus');
+
+    function filterGuests() {
+        const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        const status = filterStatus ? filterStatus.value : '';
+        const rows = document.querySelectorAll('#guestTable tr[data-name]');
+        rows.forEach(function (row) {
+            const name = row.dataset.name;
+            const guestStatus = row.dataset.status;
+            const matchName = name.includes(search);
+            const matchStatus = status === '' || guestStatus === status;
+            row.style.display = matchName && matchStatus ? '' : 'none';
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', filterGuests);
+    }
+
+    if (filterStatus) {
+        filterStatus.addEventListener('change', filterGuests);
+    }
+
+    // END OF SOURCE CODE
+    // =======================================
+
+    // Download & Print QRCode Function
+    // =======================================
+
+    /* Download QR Code */
+    const downloadQrButton = document.getElementById('downloadQrCode');
+    if (downloadQrButton) {
+        downloadQrButton.addEventListener('click', function () {
+            const qrContainer = document.getElementById('guestQrCode');
+            const svg = qrContainer.querySelector('svg');
+
+            if (!svg) {
+                return;
+            }
+
+            const filename = this.dataset.filename;
+            const serializer = new XMLSerializer();
+            const svgData = serializer.serializeToString(svg);
+            const svgBlob = new Blob(
+                [svgData],
+                {
+                    type: 'image/svg+xml;charset=utf-8'
+                }
+            );
+            const url = URL.createObjectURL(svgBlob);
+            const image = new Image();
+
+            image.onload = function () {
+                const canvas = document.createElement('canvas');
+                const size = 1000;
+                canvas.width = size;
+                canvas.height = size;
+                const context = canvas.getContext('2d');
+                context.fillStyle = '#ffffff';
+                context.fillRect(0, 0, size, size);
+                context.drawImage(
+                    image,
+                    0,
+                    0,
+                    size,
+                    size
+                );
+
+                URL.revokeObjectURL(url);
+                const downloadLink = document.createElement('a');
+                downloadLink.download = filename;
+                downloadLink.href = canvas.toDataURL('image/png');
+                downloadLink.click();
+            };
+
+            image.src = url;
+        });
+    }
+
+    /* Print QR Code */
+    const printQrButton = document.getElementById('printQrCode');
+    if (printQrButton) {
+        printQrButton.addEventListener('click', function () {
+            const printArea = document.getElementById('printQrArea');
+
+            if (!printArea) {
+                return;
+            }
+
+            const printWindow = window.open(
+                '',
+                '_blank',
+                'width=600,height=700'
+            );
+
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                    <head>
+                        <title>Print QR Code</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                padding: 40px;
+                                font-family: Arial, sans-serif;
+                            }
+
+                            .print-container {
+                                text-align: center;
+                            }
+
+                            h4 {
+                                font-size: 24px;
+                                margin-bottom: 20px;
+                            }
+
+                            svg {
+                                width: 300px;
+                                height: 300px;
+                            }
+
+                            .qr-code {
+                                margin-top: 15px;
+                                font-size: 16px;
+                                font-weight: 600;
+                            }
+
+                            @media print {
+                                body {
+                                    padding: 20px;
+                                }
+                            }
+                        </style>
+
+                    </head>
+                    <body>
+                        <div class="print-container">
+                            ${printArea.innerHTML}
+                        </div>
+                    </body>
+                </html>
+            `);
+
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.onload = function () {
+                printWindow.print();
+                printWindow.close();
+            };
+        });
+    }
+    
+    // END OF SOURCE CODE
     // =======================================
 });

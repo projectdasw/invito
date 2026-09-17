@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\ScanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,5 +27,13 @@ Route::middleware(['auth', 'prevent.back'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard.index');
     })->name('dashboard');
+    
     Route::resource('guests', GuestController::class);
+
+    Route::get('/scan', [ScanController::class, 'index'])
+        ->name('scan.index');
+    Route::post('/scan/lookup', [ScanController::class, 'lookup'])
+        ->name('scan.lookup');
+    Route::post('/scan/check-in', [ScanController::class, 'checkIn'])
+        ->name('scan.check-in');
 });

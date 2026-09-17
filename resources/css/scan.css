@@ -1,0 +1,14 @@
+/* QR Scanner */
+
+#qrReader {
+    width: 100%;
+}
+
+#qrReader video {
+    width: 100% !important;
+    border-radius: 12px;
+}
+
+#qrScannerInput {
+    letter-spacing: 1px;
+}

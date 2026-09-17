@@ -4,10 +4,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('title', 'Dashboard') | Invito</title>
         
         <!-- Dashboard Page Global CSS & JS  -->
-        @vite(['resources/css/app.css', 'resources/css/dashboard.css', 'resources/css/guests.css', 'resources/js/app.js'])
+        @vite([
+            'resources/css/app.css',
+            'resources/css/dashboard.css',
+            'resources/css/guests.css',
+            'resources/css/scan.css',
+            'resources/js/app.js'])
     </head>
 
     <body>
@@ -47,7 +53,7 @@
 
                         {{-- Scan --}}
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
+                            <a href="{{ route('scan.index') }}" class="nav-link text-white {{ request()->routeIs('scan.*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-qrcode me-2"></i>
                                 Scan QR
                             </a>
